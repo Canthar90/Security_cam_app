@@ -22,10 +22,11 @@ def send_email(image_path):
     # loading image file 
     with open(image_path, "rb") as file:
         content = file.read()
+        filename = file.name
+        im_type = imghdr.what(None, content)
     
     email_message.add_attachment(content, maintype="image",
-                                 subtype=imghdr.what(None, content))
-    
+                                 subtype=im_type, filename=filename)
     
     
     gmail = smtplib.SMTP(HOST, PORT)
